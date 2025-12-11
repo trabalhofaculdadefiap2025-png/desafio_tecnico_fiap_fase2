@@ -32,13 +32,13 @@ Passo 2: Rodar o Container
 É fundamental passar o arquivo de variáveis de ambiente (.env) na execução: docker run -p 8501:8501 --env-file .env suporte-diagnostico-fase2
 Acesse em: http://localhost:8501
 
-🔬 Relatório Técnico: Da Fase 1 para a Fase 2
+🔬 Relatório Técnico: Fase 2
 
 1. Contextualização (O Ponto de Partida)
 Na Fase 1, o  modelo baseline foi  (Decision Tree) alcançou um Recall de 90% para casos malignos. Embora bom, o modelo ainda apresentava 5 Falsos Negativos no conjunto de teste. Em medicina, falsos negativos são críticos. O objetivo da Fase 2 foi zerar esse erro.
 
 2. Otimização via Algoritmos Genéticos (GA)
-Utilizamos a biblioteca DEAP para evoluir os hiperparâmetros do modelo Decision Tree.
+Utilizei a biblioteca DEAP para evoluir os hiperparâmetros do modelo Decision Tree.
 
 Codificação (Genes): O cromossomo foi composto por max_depth, min_samples_leaf, criterion (gini/entropy) e splitter (best/random).
 
@@ -53,9 +53,9 @@ Melhores Hiperparâmetros: max_depth=2, min_samples_leaf=10, criterion='entropy'
 Interpretação: O GA descobriu que uma árvore rasa (profundidade 2), mas baseada em grupos estatísticos sólidos (mínimo 10 amostras), generaliza melhor e evita o overfitting, garantindo segurança máxima.
 
 3. Integração com LLMs (Interpretabilidade)
-Para resolver o problema da "Caixa Preta", integramos o modelo Gemini 1.5 Flash/Pro.
+Para resolver o problema da "Caixa Preta", integrei o modelo Gemini 2.5 Flash/Pro.
 
-Prompt Engineering: Desenvolvemos um prompt de sistema que instrui o LLM a atuar como um "Analista de IA Médica".
+Prompt Engineering: Desenvolvi um prompt de sistema que instrui o LLM a atuar como um "Analista de IA Médica".
 
 Fluxo: O Python envia a probabilidade matemática + os dados brutos do paciente -> O LLM analisa os valores (ex: destaca se o perimeter_worst está extremo) -> O LLM gera um texto em linguagem natural justificando o diagnóstico.
 
